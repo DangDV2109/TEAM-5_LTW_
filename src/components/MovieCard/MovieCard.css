@@ -1,0 +1,151 @@
+/* ========================================================
+   MovieCard - Thẻ phim thu nhỏ (Slide 1 phần dưới & Slide 2)
+   ======================================================== */
+.mini-movie-card {
+  position: relative;
+  height: 100%;
+  aspect-ratio: 2 / 3;
+  flex-shrink: 0;
+  background: #121212;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.mini-movie-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(237, 28, 36, 0.8);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.8), 0 0 12px rgba(237, 28, 36, 0.3);
+}
+
+.mini-card-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.mini-movie-card:hover .mini-card-poster {
+  transform: scale(1.06);
+}
+
+.mini-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.55) 35%, transparent 65%);
+  transition: background 0.3s ease;
+}
+
+.mini-movie-card:hover .mini-card-overlay {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.7) 50%, rgba(0, 0, 0, 0.15) 100%);
+}
+
+.mini-card-rating {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.4rem;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.12rem 0.35rem;
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  border-radius: 4px;
+  color: #ffd700;
+  font-size: 0.65rem;
+  font-weight: 800;
+}
+
+.mini-card-status {
+  position: absolute;
+  top: 0.4rem;
+  left: 0.4rem;
+  z-index: 2;
+  padding: 0.12rem 0.35rem;
+  background: #ED1C24;
+  border-radius: 3px;
+  color: #ffffff;
+  font-size: 0.55rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.mini-card-info {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  transform: translateY(1.9rem);
+  /* nút Đặt vé ẩn bên dưới, trượt lên khi hover */
+  transition: transform 0.3s ease;
+}
+
+.mini-movie-card:hover .mini-card-info,
+.mini-movie-card:focus-within .mini-card-info {
+  transform: translateY(0);
+}
+
+.mini-card-title {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: #ffffff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mini-card-date {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.65rem;
+  color: #9ca3af;
+}
+
+.mini-card-date svg {
+  width: 11px;
+  height: 11px;
+  color: #ED1C24;
+  flex-shrink: 0;
+}
+
+.mini-card-book-btn {
+  margin-top: 0.3rem;
+  width: 100%;
+  height: 1.4rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.mini-movie-card:hover .mini-card-book-btn,
+.mini-movie-card:focus-within .mini-card-book-btn {
+  opacity: 1;
+}
+
+.mini-card-book-btn:hover {
+  background-color: #ED1C24;
+  border-color: #ED1C24;
+  box-shadow: 0 4px 12px rgba(237, 28, 36, 0.5);
+}
