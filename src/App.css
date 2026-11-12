@@ -1,0 +1,14 @@
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #0a0a0a;
+  color: #ffffff;
+  overflow-x: hidden;
+}
+
+.main-content-slider {
+  flex: 1;
+  position: relative;
+  width: 100%;
+}

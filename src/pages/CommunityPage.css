@@ -1,0 +1,781 @@
+/* ============================================================
+   CommunityPage.css — Trang Cộng Đồng (PTIT Cine)
+   Tham khảo Moveek Community + Nút Thích/Bình luận kiểu YouTube
+   ============================================================ */
+
+.community-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #0b0b0d;
+  color: #ffffff;
+  font-family: Arial, Helvetica, sans-serif;
+  padding-top: 51px;
+  overflow-x: hidden;
+}
+
+.comm-container {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+}
+
+/* Banner đầu trang kiểu Moveek Community */
+.comm-hero-banner {
+  background: linear-gradient(180deg, #2b2f38 0%, #1c1f26 70%, #121418 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.5rem 0 2rem;
+}
+
+.comm-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.1rem;
+}
+
+.comm-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.9rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  color: #f3f4f6;
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.comm-back-btn:hover {
+  background: #ED1C24;
+  border-color: #ED1C24;
+  color: #ffffff;
+  transform: translateX(-2px);
+}
+
+.comm-retention-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.32rem 0.75rem;
+  background: rgba(237, 28, 36, 0.16);
+  border: 1px solid rgba(237, 28, 36, 0.45);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #fca5a5;
+}
+
+.comm-hero-title {
+  margin: 0 0 0.4rem;
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  font-weight: 900;
+}
+
+.comm-hero-desc {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #cbd5e1;
+}
+
+/* Layout 2 cột chính */
+.comm-main-layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 2rem;
+  padding-top: 2rem;
+  padding-bottom: 3.5rem;
+  align-items: start;
+}
+
+/* ============================================================
+   KHUNG VIẾT ĐÁNH GIÁ & CHỌN SAO
+   ============================================================ */
+.comm-compose-card {
+  background: #14161b;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 1.35rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+}
+
+.compose-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.compose-card-header h3 {
+  margin: 0;
+  font-size: 1.08rem;
+  color: #ffffff;
+}
+
+.compose-expire-note {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+.compose-row-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.compose-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.compose-field label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #cbd5e1;
+}
+
+.compose-input,
+.compose-select {
+  padding: 0.55rem 0.75rem;
+  background: #0d0f12;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 0.88rem;
+  outline: none;
+}
+
+.compose-input:focus,
+.compose-select:focus,
+.compose-textarea:focus {
+  border-color: #ED1C24;
+}
+
+/* Bộ chọn số sao 1 -> 10 */
+.compose-star-picker {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  padding: 0.65rem 0.9rem;
+  background: #0d0f12;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.star-picker-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #e2e8f0;
+}
+
+.star-buttons-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.star-icon-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.35rem;
+  color: #3f3f46;
+  cursor: pointer;
+  padding: 0 0.12rem;
+  line-height: 1;
+  transition: transform 0.12s, color 0.12s;
+}
+
+.star-icon-btn.filled {
+  color: #facc15;
+}
+
+.star-icon-btn:hover {
+  transform: scale(1.2);
+}
+
+.star-score-badge {
+  margin-left: auto;
+  padding: 0.22rem 0.6rem;
+  background: rgba(250, 204, 21, 0.15);
+  border: 1px solid rgba(250, 204, 21, 0.45);
+  border-radius: 4px;
+  color: #fde047;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.compose-textarea {
+  width: 100%;
+  padding: 0.75rem;
+  background: #0d0f12;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-family: inherit;
+  resize: vertical;
+  outline: none;
+  box-sizing: border-box;
+  margin-bottom: 0.85rem;
+}
+
+.compose-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.compose-submit-btn {
+  padding: 0.6rem 1.4rem;
+  background: #ED1C24;
+  border: none;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 0.88rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.compose-submit-btn:hover {
+  background: #ff2b34;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(237, 28, 36, 0.4);
+}
+
+/* ============================================================
+   THANH LỌC BÀI VIẾT
+   ============================================================ */
+.comm-feed-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.feed-tabs {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.feed-tab-btn {
+  padding: 0.45rem 0.95rem;
+  background: #16181e;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  color: #cbd5e1;
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.feed-tab-btn.active {
+  background: #ED1C24;
+  border-color: #ED1C24;
+  color: #ffffff;
+}
+
+.feed-filter-select {
+  padding: 0.45rem 0.8rem;
+  background: #16181e;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 6px;
+  color: #f3f4f6;
+  font-size: 0.84rem;
+  outline: none;
+}
+
+/* ============================================================
+   THẺ BÀI ĐÁNH GIÁ (MOVEEK CARD + YOUTUBE INTERACTIONS)
+   ============================================================ */
+.comm-posts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.comm-post-card {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.25rem;
+  background: #14161b;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 1.25rem;
+  transition: border-color 0.2s;
+}
+
+.comm-post-card:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.post-main-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.post-user-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  margin-bottom: 0.6rem;
+}
+
+.post-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.post-user-meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.post-author-line {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  font-size: 0.92rem;
+}
+
+.post-author-name {
+  color: #ffffff;
+}
+
+.post-action-text {
+  color: #9ca3af;
+  font-size: 0.84rem;
+}
+
+.post-movie-link {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #ED1C24;
+  font-weight: 800;
+  font-size: 0.92rem;
+  cursor: pointer;
+}
+
+.post-movie-link:hover {
+  text-decoration: underline;
+}
+
+.post-time-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.25rem;
+  font-size: 0.76rem;
+  color: #9ca3af;
+}
+
+.post-rating-pill {
+  padding: 0.1rem 0.45rem;
+  background: rgba(250, 204, 21, 0.16);
+  border: 1px solid rgba(250, 204, 21, 0.4);
+  border-radius: 4px;
+  color: #fde047;
+  font-weight: 800;
+}
+
+.post-expiry-tag {
+  color: #fca5a5;
+}
+
+.post-delete-btn {
+  background: transparent;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 0.2rem 0.4rem;
+}
+
+.post-delete-btn:hover {
+  color: #ED1C24;
+}
+
+.post-visual-stars {
+  margin-bottom: 0.5rem;
+  letter-spacing: 2px;
+  font-size: 0.95rem;
+}
+
+.visual-star.on {
+  color: #facc15;
+}
+
+.visual-star.off {
+  color: #3f3f46;
+}
+
+.post-content-text {
+  margin: 0 0 0.9rem;
+  font-size: 0.93rem;
+  line-height: 1.6;
+  color: #e5e7eb;
+  white-space: pre-wrap;
+}
+
+/* Poster nhỏ bên phải thẻ đánh giá (Moveek style) */
+.post-movie-poster-side {
+  width: 76px;
+  height: 112px;
+  border-radius: 6px;
+  overflow: hidden;
+  flex-shrink: 0;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.post-movie-poster-side img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.25s;
+}
+
+.post-movie-poster-side:hover img {
+  transform: scale(1.06);
+}
+
+/* ============================================================
+   NÚT LIKE / DISLIKE / REPLY KIỂU YOUTUBE
+   ============================================================ */
+.yt-action-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.yt-like-dislike-pill {
+  display: inline-flex;
+  align-items: center;
+  background: #27272a;
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.yt-like-btn,
+.yt-dislike-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  padding: 0.38rem 0.8rem;
+  background: transparent;
+  border: none;
+  color: #e4e4e7;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.yt-like-btn:hover,
+.yt-dislike-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.yt-like-btn.active {
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.15);
+}
+
+.yt-dislike-btn.active {
+  color: #f87171;
+  background: rgba(248, 113, 113, 0.15);
+}
+
+.yt-pill-divider {
+  width: 1px;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.yt-reply-toggle-btn {
+  padding: 0.38rem 0.85rem;
+  background: transparent;
+  border: none;
+  border-radius: 999px;
+  color: #d4d4d8;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.yt-reply-toggle-btn:hover {
+  background: #27272a;
+  color: #ffffff;
+}
+
+/* Form nhập Reply kiểu YouTube */
+.yt-reply-form {
+  margin-top: 0.85rem;
+  padding: 0.75rem;
+  background: #0d0f13;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.reply-author-input,
+.reply-text-input {
+  padding: 0.45rem 0.65rem;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-size: 0.84rem;
+  outline: none;
+}
+
+.reply-author-input:focus,
+.reply-text-input:focus {
+  border-bottom-color: #ED1C24;
+}
+
+.reply-form-btns {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.reply-cancel-btn {
+  padding: 0.35rem 0.8rem;
+  background: transparent;
+  border: none;
+  color: #9ca3af;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.reply-submit-btn {
+  padding: 0.35rem 0.9rem;
+  background: #2563eb;
+  border: none;
+  border-radius: 999px;
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Danh sách phản hồi (Replies) */
+.yt-replies-list {
+  margin-top: 0.9rem;
+  padding-left: 1rem;
+  border-left: 2px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.yt-reply-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+}
+
+.reply-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.reply-body {
+  flex: 1;
+}
+
+.reply-header {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.8rem;
+}
+
+.reply-header span {
+  color: #9ca3af;
+  font-size: 0.72rem;
+}
+
+.reply-text {
+  margin: 0.2rem 0 0.35rem;
+  font-size: 0.85rem;
+  color: #e5e7eb;
+}
+
+.reply-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.yt-mini-like,
+.yt-mini-dislike {
+  background: transparent;
+  border: none;
+  color: #9ca3af;
+  font-size: 0.75rem;
+  cursor: pointer;
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+}
+
+.yt-mini-like.active {
+  color: #38bdf8;
+  font-weight: 700;
+}
+
+.yt-mini-dislike.active {
+  color: #f87171;
+  font-weight: 700;
+}
+
+/* ============================================================
+   SIDEBAR PHẢI (MOVEEK TRENDING & RULES)
+   ============================================================ */
+.comm-sidebar-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.comm-sidebar-box {
+  background: #14161b;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 1.2rem;
+}
+
+.sidebar-box-title {
+  margin: 0 0 1rem;
+  font-size: 0.98rem;
+  font-weight: 800;
+  color: #ffffff;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.trending-movies-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.trending-movie-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  padding: 0.35rem;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+
+.trending-movie-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.trending-poster {
+  width: 46px;
+  height: 68px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.trending-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.trending-info h4 {
+  margin: 0 0 0.2rem;
+  font-size: 0.88rem;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.trending-info p {
+  margin: 0 0 0.3rem;
+  font-size: 0.74rem;
+  color: #9ca3af;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.trending-stats {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.75rem;
+}
+
+.trending-score {
+  color: #facc15;
+  font-weight: 800;
+}
+
+.trending-count {
+  color: #cbd5e1;
+}
+
+.comm-rules-list {
+  margin: 0;
+  padding-left: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  font-size: 0.84rem;
+  color: #cbd5e1;
+  line-height: 1.5;
+}
+
+@media (max-width: 920px) {
+  .comm-main-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .compose-row-grid {
+    grid-template-columns: 1fr;
+  }
+}

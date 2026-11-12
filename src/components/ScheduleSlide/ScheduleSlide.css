@@ -1,0 +1,878 @@
+/* ============================================================
+   ScheduleSlide.css — Slide Lịch Chiếu / Sắp Chiếu / Phim Việt Nam - PTIT Cine
+   - Slide 3 (mode-now): circle at top
+   - Slide 4 (mode-coming): bỏ circle at top
+   - Slide 5 (mode-vietnam): circle at bottom (circle at down)
+   - Bản Mobile: 2 thanh chọn thành phố & rạp cùng 1 dòng;
+     hiển thị 1 thẻ phim giữa + 2 nửa thẻ phim bên cạnh đứng trên sàn bóng loáng,
+     tên phim + chỉ thị [k/n] cỡ 0.5em, bỏ nút prev/next
+   ============================================================ */
+
+/* ===== CONTAINER TỔNG (100% HEIGHT TOÀN MÀN HÌNH) ===== */
+.schedule-slide-container {
+  width: 100%;
+  height: 100%;
+  padding: calc(var(--header-h, 51px) + 0.85rem) 4.5rem 1rem 2.2rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: #000000;
+  color: #ffffff;
+  font-family: Arial, Helvetica, sans-serif;
+  position: relative;
+
+  /* Mặc định Slide 3 (mode-now): circle at top + lưới ô vuông 100px */
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    radial-gradient(circle at top, #1c1917 0%, #0a0a0a 60%, #000000 100%);
+  background-size: 100px 100px, 100px 100px, 100% 100%;
+  background-position: 0 0, 0 0, center top;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* Slide 4 (mode-coming): Background bỏ circle at top */
+.schedule-slide-container.mode-coming {
+  background-color: #050505;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 100px 100px, 100px 100px;
+  background-position: 0 0, 0 0;
+}
+
+/* Slide 5 (mode-vietnam): Bỏ circle at top, sửa thành circle at bottom (down) */
+.schedule-slide-container.mode-vietnam {
+  background-color: #000000;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    radial-gradient(circle at bottom, #1c1917 0%, #0a0a0a 60%, #000000 100%);
+  background-size: 100px 100px, 100px 100px, 100% 100%;
+  background-position: 0 0, 0 0, center bottom;
+}
+
+.schedule-slide-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* ===== TIÊU ĐỀ + 2 CHỨC NĂNG LIST ĐẶT LỀ PHẢI ===== */
+.schedule-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  min-height: 36px;
+  margin-bottom: 0.5rem;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.schedule-heading-left {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+/* Slide 3: Dấu chấm đỏ nhấp nháy */
+.schedule-dot {
+  color: #ED1C24;
+  font-size: 1.1rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+/* Slide 4: Ký tự 🔜 nhấp nháy màu đỏ */
+.schedule-soon-indicator {
+  font-size: 1.1rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #ED1C24;
+  filter: grayscale(100%) brightness(48%) sepia(100%) hue-rotate(-50deg) saturate(1000%) contrast(1.15);
+  text-shadow: 0 0 8px rgba(237, 28, 36, 0.75);
+  animation: pulse 2s infinite ease-in-out;
+}
+
+/* Slide 5: Ngôi sao nhấp nháy màu vàng, bao quanh là nền đỏ cỡ 10x25px */
+.vn-star-badge {
+  width: 25px;
+  height: 10px;
+  background-color: #ED1C24;
+  border-radius: 2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 8px rgba(237, 28, 36, 0.55);
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.vn-star-icon {
+  color: #ffd700;
+  font-size: 9px;
+  line-height: 1;
+  display: inline-block;
+  text-shadow: 0 0 6px rgba(255, 215, 0, 0.9);
+  animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+.schedule-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.current-cinema-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.78rem;
+  padding: 0.2rem 0.55rem;
+  background: rgba(237, 28, 36, 0.15);
+  border: 1px solid rgba(237, 28, 36, 0.4);
+  border-radius: 4px;
+  color: #e5e7eb;
+}
+
+.current-cinema-badge strong {
+  color: #ED1C24;
+  margin-left: 0.25rem;
+}
+
+.schedule-heading-filters {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+
+/* ===== THANH NGÀY CHIẾU + NÚT "xem tất cả->" ===== */
+.schedule-date-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.6rem;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.schedule-date-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.42rem;
+}
+
+.date-tab-btn {
+  padding: 0.28rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.07);
+  color: #ccc;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  letter-spacing: 0.03em;
+}
+
+.date-tab-btn:hover {
+  background: rgba(237, 28, 36, 0.25);
+  border-color: #ED1C24;
+  color: #fff;
+}
+
+.date-tab-btn.active {
+  background: #ED1C24;
+  border-color: #ED1C24;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* Nút "xem tất cả->" ở Slide 3 */
+.view-all-movies-btn {
+  margin-left: auto;
+  padding: 0.28rem 0.75rem;
+  background: transparent;
+  border: 1px solid rgba(237, 28, 36, 0.55);
+  border-radius: 4px;
+  color: #f3f4f6;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+
+.view-all-movies-btn:hover {
+  background: #ED1C24;
+  border-color: #ED1C24;
+  color: #ffffff;
+  transform: translateX(2px);
+}
+
+/* ===== KHU VỰC CHÍNH TRÊN PC: PREV + LƯỚI 3x3 + NEXT ===== */
+.schedule-main-area {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  padding: 0 4.2rem;
+  box-sizing: border-box;
+}
+
+.schedule-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  width: 24px;
+  height: 42px;
+  background: rgba(30, 30, 30, 0);
+  border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: 6px;
+  color: #cccccc;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  user-select: none;
+}
+
+.schedule-nav-btn:hover:not(:disabled) {
+  background: rgba(237, 28, 35, 0.015);
+  border-color: #ed1c2300;
+  color: #ff0f0f;
+  transform: translateY(-50%) scale(1.06);
+  box-shadow: 0 0 12px rgba(237, 28, 35, 0);
+}
+
+.prev-btn {
+  left: 0;
+}
+
+.next-btn {
+  right: 0;
+}
+
+.nav-btn-arrow {
+  font-size: 0.85em;
+  line-height: 1;
+  color: #aaa;
+}
+
+.nav-btn-label {
+  font-size: 0.75em;
+  letter-spacing: 0.08em;
+}
+
+.schedule-movies-grid {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  gap: 0.7rem;
+  min-width: 0;
+  min-height: 0;
+}
+
+.schedule-movie-card {
+  display: flex;
+  flex-direction: row;
+  background: rgba(20, 20, 20, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  min-height: 0;
+  height: 100%;
+}
+
+.schedule-movie-card:hover {
+  border-color: rgba(237, 28, 36, 0.5);
+  box-shadow: 0 0 12px rgba(237, 28, 36, 0.18);
+}
+
+.sched-poster-wrap {
+  flex-shrink: 0;
+  width: clamp(75px, 6vw, 100px);
+  height: 100%;
+  overflow: hidden;
+  background: #111;
+}
+
+.sched-poster-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s;
+}
+
+.schedule-movie-card:hover .sched-poster-img {
+  transform: scale(1.05);
+}
+
+.sched-info {
+  flex: 1;
+  padding: 0.32rem 0.6rem 0.35rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0.08rem;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.sched-meta-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.3rem;
+}
+
+.sched-genre-duration {
+  font-size: 0.68rem;
+  color: #9ca3af;
+  line-height: 1.15;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sched-format-badge {
+  flex-shrink: 0;
+  padding: 0.04rem 0.32rem;
+  background: transparent;
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #d1d5db;
+  letter-spacing: 0.05em;
+  line-height: 1.15;
+}
+
+.sched-movie-title {
+  font-size: clamp(0.75rem, 0.82vw, 0.85rem);
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.sched-origin,
+.sched-release {
+  font-size: 0.66rem;
+  color: #9ca3af;
+  margin: 0;
+  line-height: 1.15;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sched-release-coming strong {
+  color: #ffd700;
+  font-weight: 700;
+}
+
+.sched-age-rating {
+  font-size: 0.63rem;
+  margin: 0;
+  font-style: italic;
+  line-height: 1.15;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sched-screenings {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.3rem;
+  margin-top: 0.14rem;
+  padding-top: 0;
+}
+
+.sched-screenings-label {
+  font-size: 0.66rem;
+  color: #9ca3af;
+  font-weight: 600;
+  flex-shrink: 0;
+  line-height: 1.4;
+}
+
+.sched-time-slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.22rem;
+}
+
+.time-slot-btn {
+  padding: 0.1rem 0.34rem;
+  background: rgba(237, 28, 36, 0.14);
+  border: 1px solid rgba(237, 28, 36, 0.45);
+  border-radius: 3px;
+  color: #f1f5f9;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  cursor: pointer;
+  line-height: 1.2;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.time-slot-btn:hover {
+  background: #ED1C24;
+  border-color: #ED1C24;
+  color: #ffffff;
+}
+
+.sched-region-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.22rem;
+}
+
+.region-badge {
+  padding: 0.08rem 0.35rem;
+  background: rgba(237, 28, 36, 0.14);
+  border: 1px solid rgba(237, 28, 36, 0.42);
+  border-radius: 3px;
+  color: #f8fafc;
+  font-size: 0.63rem;
+  font-weight: 600;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+/* ===== MOBILE 3D SHOWCASE (MẶC ĐỊNH ẨN TRÊN PC) ===== */
+.mobile-poster-showcase {
+  display: none;
+}
+
+/* ===== TRẠNG THÁI KHÔNG TÌM THẤY PHIM ===== */
+.schedule-empty-state {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background: rgba(20, 20, 20, 0.6);
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  margin: 0.5rem 0;
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 2.8rem;
+  margin-bottom: 0.6rem;
+  filter: grayscale(0.5);
+}
+
+.empty-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.4rem 0;
+}
+
+.empty-desc {
+  font-size: 0.85rem;
+  color: #9ca3af;
+  margin: 0 0 1.2rem 0;
+  max-width: 480px;
+}
+
+.empty-desc strong {
+  color: #ED1C24;
+}
+
+.empty-reset-btn {
+  padding: 0.55rem 1.3rem;
+  background: #ED1C24;
+  border: none;
+  border-radius: 4px;
+  color: #ffffff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.empty-reset-btn:hover {
+  background: #ff2b34;
+  transform: translateY(-2px);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+/* Tablet */
+@media (max-width: 1100px) {
+  .schedule-movies-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile (<= 768px):
+   - 2 thanh chọn thành phố và chọn rạp cùng 1 dòng
+   - Ẩn lưới dòng chữ & nút prev/next
+   - Hiện 1 thẻ phim chính + 2 nửa thẻ phim bên cạnh
+   - Slide 3: 2 nửa thẻ đằng sau nghiêng ~10 độ với mặt phẳng Oyz (Oxyz: Ox đâm vào mắt, Oy ngang, Oz dọc)
+   - Slide 4 & 5: 2 nửa thẻ đằng sau không nghiêng
+   - Dưới thẻ và 2 nửa thẻ bên cạnh có hiệu ứng sàn nhà bóng loáng
+   - Dưới nữa là tên phim và chỉ thị [k/n] cỡ 0.5em không bôi đen
+*/
+@media (max-width: 768px) {
+  .schedule-slide-container {
+    padding: calc(var(--header-h, 51px) + 0.55rem) 0.75rem 0.6rem;
+    overflow: hidden;
+  }
+
+  .schedule-heading {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.4rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .schedule-title {
+    font-size: 1.1rem;
+  }
+
+  /* 2 thanh chọn thành phố và chọn rạp CÙNG 1 DÒNG trên mobile */
+  .schedule-heading-filters {
+    width: 100%;
+    margin-left: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.45rem;
+  }
+
+  .schedule-heading-filters .searchable-select-wrap {
+    min-width: 0;
+    max-width: none;
+    width: 100%;
+  }
+
+  .schedule-heading-filters .select-display-box {
+    min-height: 32px;
+    padding: 0.3rem 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .schedule-date-bar {
+    gap: 0.35rem;
+    margin-bottom: 0.35rem;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .schedule-date-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .schedule-date-tabs {
+    flex-wrap: nowrap;
+    gap: 0.3rem;
+  }
+
+  .date-tab-btn {
+    padding: 0.22rem 0.5rem;
+    font-size: 0.7rem;
+    white-space: nowrap;
+  }
+
+  .view-all-movies-btn {
+    padding: 0.22rem 0.55rem;
+    font-size: 0.72rem;
+    flex-shrink: 0;
+  }
+
+  /* Ẩn lưới PC và nút PREV / NEXT trên mobile */
+  .desktop-schedule-view {
+    display: none !important;
+  }
+
+  /* Khu vực trình diễn thẻ phim 3D trên Mobile */
+  .mobile-poster-showcase {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* Sân khấu chứa 1 thẻ chính + 2 nửa thẻ bên cạnh
+     - Thẻ chính rộng 50% sân khấu (nằm từ 25% -> 75%)
+     - Thẻ trái rộng 50% sân khấu, dịch sang trái 1/2 thẻ (nằm từ 0% -> 50%, lộ đúng 1/2 thẻ ở vùng 0%..25%)
+     - Thẻ phải rộng 50% sân khấu, dịch sang phải 1/2 thẻ (nằm từ 50% -> 100%, lộ đúng 1/2 thẻ ở vùng 75%..100%)
+  */
+  .mobile-showcase-stage {
+    position: relative;
+    width: min(100%, 380px);
+    height: min(49dvh, 305px);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    perspective: 850px;
+    transform-style: preserve-3d;
+    overflow: visible;
+  }
+
+  .mobile-showcase-item {
+    position: absolute;
+    top: 4px;
+    width: 48%;
+    max-width: 185px;
+    aspect-ratio: 2 / 3;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), filter 0.45s ease, opacity 0.45s ease;
+  }
+
+  .mobile-card-frame {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #141414;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.85);
+    flex-shrink: 0;
+  }
+
+  .mobile-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    pointer-events: none;
+  }
+
+  .mobile-card-format {
+    position: absolute;
+    top: 0.4rem;
+    right: 0.4rem;
+    padding: 0.1rem 0.35rem;
+    background: rgba(0, 0, 0, 0.78);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 4px;
+    font-size: 0.62rem;
+    font-weight: 800;
+    color: #ffffff;
+  }
+
+  /* Thẻ chính ở giữa */
+  .mobile-showcase-item.is-center {
+    z-index: 4;
+    transform: translate3d(0, 0, 20px) scale(1);
+    filter: brightness(1.05);
+  }
+
+  .mobile-showcase-item.is-center .mobile-card-frame {
+    border: 1.5px solid rgba(237, 28, 36, 0.85);
+    box-shadow:
+      0 14px 32px rgba(0, 0, 0, 0.9),
+      0 0 18px rgba(237, 28, 36, 0.35);
+  }
+
+  /* 2 nửa thẻ phim đằng sau (mặc định Slide 4 & Slide 5: không nghiêng) */
+  .mobile-showcase-item.is-side {
+    z-index: 2;
+    filter: brightness(0.62) saturate(0.88);
+    opacity: 0.92;
+  }
+
+  .mobile-showcase-item.is-left {
+    /* Dịch sang trái đúng 1/2 chiều rộng thẻ để lộ 1/2 thẻ bên trái */
+    transform: translate3d(-52%, 6px, -35px) scale(0.9);
+  }
+
+  .mobile-showcase-item.is-right {
+    /* Dịch sang phải đúng 1/2 chiều rộng thẻ để lộ 1/2 thẻ bên phải */
+    transform: translate3d(52%, 6px, -35px) scale(0.9);
+  }
+
+  /* Slide 3 (.has-3d-tilt):
+     Hệ trục Oxyz (Ox đâm thẳng vào mắt người xem = trục Z của CSS,
+     Oy chạy ngang màn hình = trục X của CSS, Oz chạy dọc màn hình = trục Y của CSS):
+     2 thẻ phim đằng sau nghiêng 1 góc khoảng 10 độ so với mặt phẳng Oyz (mặt phẳng màn hình)
+  */
+  .mobile-poster-showcase.has-3d-tilt .mobile-showcase-item.is-left {
+    transform-origin: right center;
+    transform: translate3d(-52%, 8px, -40px) rotateY(10deg) rotateZ(-8deg) scale(0.9);
+  }
+
+  .mobile-poster-showcase.has-3d-tilt .mobile-showcase-item.is-right {
+    transform-origin: left center;
+    transform: translate3d(52%, 8px, -40px) rotateY(-10deg) rotateZ(8deg) scale(0.9);
+  }
+
+  /* Hiệu ứng bóng phản chiếu dưới thẻ phim và 2 nửa thẻ phim bên cạnh (sàn nhà bóng loáng) */
+  .mobile-card-reflection {
+    position: absolute;
+    top: calc(100% + 2px);
+    left: 0;
+    width: 100%;
+    height: 36%;
+    border-radius: 10px;
+    overflow: hidden;
+    pointer-events: none;
+    transform: scaleY(-1);
+    opacity: 0.42;
+    filter: blur(1.2px) brightness(0.75);
+    -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.25) 55%, transparent 100%);
+    mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.25) 55%, transparent 100%);
+  }
+
+  .mobile-reflection-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Mặt sàn bóng loáng dưới chân 3 thẻ phim */
+  .mobile-glossy-floor {
+    position: absolute;
+    bottom: 6%;
+    left: 4%;
+    right: 4%;
+    height: 44px;
+    pointer-events: none;
+    z-index: 3;
+    background:
+      radial-gradient(ellipse at center top, rgba(255, 255, 255, 0.22) 0%, rgba(237, 28, 36, 0.08) 38%, transparent 75%),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.14) 0%, rgba(15, 15, 15, 0.65) 45%, transparent 100%);
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 50%;
+    filter: blur(2px);
+  }
+
+  /* Tên phim & chỉ thị [k/n] cỡ 0.5em ở dưới sàn bóng loáng */
+  .mobile-showcase-caption {
+    margin-top: 0.35rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    text-align: center;
+    z-index: 5;
+    max-width: 92%;
+  }
+
+  .mobile-showcase-title {
+    margin: 0;
+    font-size: 1.02rem;
+    font-weight: 800;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    line-height: 1.25;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+  }
+
+  /* Chỉ thị [k/n] cỡ 0.5em, không được bôi đen, chỉ có khung [] và k/n */
+  .mobile-showcase-index {
+    font-size: 0.5em;
+    font-weight: 700;
+    color: #d1d5db;
+    letter-spacing: 0.08em;
+    line-height: 1.2;
+    background: none;
+    border: none;
+    padding: 0;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* Nút "xem tất cả->" hiển thị rõ ràng trên bản Mobile ở Slide 3 */
+  .mobile-view-all-btn {
+    margin-top: 0.35rem;
+    padding: 0.32rem 0.9rem;
+    background: rgba(237, 28, 36, 0.16);
+    border: 1px solid #ED1C24;
+    border-radius: 4px;
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    transition: background 0.2s ease, transform 0.15s ease;
+  }
+
+  .mobile-view-all-btn:hover,
+  .mobile-view-all-btn:active {
+    background: #ED1C24;
+    transform: translateX(2px);
+  }
+}
